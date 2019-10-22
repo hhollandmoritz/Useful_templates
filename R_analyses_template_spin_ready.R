@@ -2,17 +2,18 @@
 
 #+ knitr setup, include=FALSE
 # some setup options for outputing markdown files; feel free to ignore these
-knitr::opts_chunk$set(eval = TRUE, 
-                      include = TRUE,
-                      echo = FALSE,
-                      warning = FALSE, 
-                      message = FALSE,
-                      collapse = TRUE,
-                      dpi = 300,
-                      fig.dim = c(9, 9),
-                      out.width = '98%',
-                      out.height = '98%',
-                      cache = TRUE)
+# These are the default options for this report; more information about options here: https://yihui.name/knitr/options/
+knitr::opts_chunk$set(eval = TRUE, # evaluate code chunks
+                      include = TRUE, # include the console output of the code in the final document
+                      echo = FALSE, # include the code that generated the report in the final report
+                      warning = FALSE, # include warnings
+                      message = FALSE, # include console messages
+                      collapse = TRUE, # Merge code blocks and output blocks, if possible.
+                      dpi = 300, # the default figure resolution
+                      fig.dim = c(9, 9), # the default figure dimensions
+                      out.width = '98%', # the default figure output width
+                      out.height = '98%', # the default figure output height
+                      cache = TRUE) # save the calculations so that kniting is faster each time. (Sometimes this option can cause issues and images won't reflect the most recent code changes, if this happens, just delete the *_cache folder and reknit the code.)
 #+ loading libraries and set seed
 
 library(plyr) # always load before tidyverse to avoid conflicts with dplyr
