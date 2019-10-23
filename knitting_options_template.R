@@ -6,7 +6,7 @@ o = knitr::spin("R_analyses_template_spin_ready.R", knit = FALSE)
 ### Now create the report from the .Rmd file you just created
 rmarkdown::render(o, "html_document")
 
-# kniting a report and rendering it at the same time. 
+# kniting a report and rendering it at the same time. This will render the code properly for github interpretation 
 knitr::spin("R_analyses_template_spin_ready.R", knit = TRUE, report = TRUE, precious = TRUE)
 
 
