@@ -8,6 +8,8 @@
 #'     toc: true
 #'   html_document:
 #'     toc: true
+#'   github_document:
+#'     toc: true
 #' ---
 
 #+ full setup, include=FALSE

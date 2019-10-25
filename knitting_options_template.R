@@ -42,6 +42,8 @@ multi_doc_lines <- c("
 #'     toc: true
 #'   html_document:
 #'     toc: true
+#'   github_document:
+#'     toc: true
 #' ---
 
 #+ full setup, include=FALSE
@@ -75,8 +77,8 @@ all = knitr::spin(paste0(knit.fp, "/knit_multi_doc_report.R"), knit = FALSE)
 rmarkdown::render(all, output_format = html_document(toc = TRUE), 
                   output_file = "Full_Report")
 
-# Markdown document
-rmarkdown::render(all, output_format = md_document(toc = TRUE), 
+# Markdown document (github flavored)
+rmarkdown::render(all, output_format = github_document(toc = TRUE), 
                   output_file = "Full_Report")
 # PDF Document
 rmarkdown::render(all, output_format = pdf_document(toc = TRUE), 
