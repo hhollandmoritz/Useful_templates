@@ -1,8 +1,0 @@
-# Your Project Title Here
-
-```{r Part 1, child="Part1.Rmd"}
-
-```
-```{r Part 2, child="Part2.Rmd"}
-```
-

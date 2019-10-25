@@ -1,25 +1,76 @@
 # kniting one report at a time to an html document
+library(knitr)
+library(rmarkdown)
 
-### First create your .Rmd file from your R template
-o = knitr::spin("R_analyses_template_spin_ready.R", knit = FALSE)
+# Create knit directory
+project.fp <- "/home/hannah/Documents/Fierer_lab/Useful Templates"
+knit.fp <- paste0(project.fp, "/knit")
+code.fp <- paste0(project.fp, "/code") # location of your scripts, sometimes this might be different than your projects directory
 
-### Now create the report from the .Rmd file you just created
+if (!dir.exists(knit.fp)) {dir.create(knit.fp)}
+
+#### Knitting Part 1: NameOfPart1 ####
+
+file.copy(from = paste0(code.fp, "/Part1.R"),
+          to = paste0(knit.fp, "/Part1.R"),
+          overwrite = TRUE)
+o = knitr::spin(paste0(knit.fp, "/Part1.R"), knit = FALSE)
 rmarkdown::render(o, "html_document")
+#### =================================================================================================== ####
 
-# kniting a report and rendering it at the same time. This will render the code properly for github interpretation 
-knitr::spin("R_analyses_template_spin_ready.R", knit = TRUE, report = TRUE, precious = TRUE)
+#### Kniting Part 2: 02_preliminary_analyses ####
 
+file.copy(from = paste0(code.fp, "/Part2.R"),
+          to = paste0(knit.fp, "/Part2.R"),
+          overwrite = TRUE)
+o = knitr::spin(paste0(knit.fp, "/Part2.R"), knit = FALSE)
+rmarkdown::render(o, "html_document")
+#### =================================================================================================== ####
 
-# kniting multiple reports together
+#### Concatenated Report ####
 
-# Create Rmd document(s) for each of the individual pieces of code
+# Write the knit_multi_doc_report.R
+# Change the names of the documents in the lines with "child = " to match your own
 
-p1 = knitr::spin("Multireport/Part1.R", knit = FALSE)
-p2 = knitr::spin("Multireport/Part2.R", knit = FALSE)
+multi_doc_lines <- c("
+#' ---
+#' title: Full Report Title
+#' author: Your Name Here
+#' date: \"`r format(Sys.time(), '%d %B, %Y')`\"
+#' output: 
+#'   pdf_document:
+#'     toc: true
+#'   html_document:
+#'     toc: true
+#' ---
 
-# Create a separated R file that merges these documents. In this case that document is "knit_multi_doc_report.R"
+#+ full setup, include=FALSE
+knitr::opts_chunk$set(eval = TRUE, 
+                      include = TRUE,
+                      echo = FALSE,
+                      warning = FALSE, 
+                      message = FALSE,
+                      collapse = TRUE,
+                      dpi = 300,
+                      fig.dim = c(9, 5),
+                      out.width = '98%',
+                      out.height = '98%',
+                      cache = FALSE)
 
-all = knitr::spin("Multireport/knit_multi_doc_report.R", knit = FALSE)
+#+ Part 1, child=\"Part1.Rmd\", cache = TRUE
 
-rmarkdown::render(all, "html_document", output_file = "Full_report")
-rmarkdown::render(all, "pdf_document", output_file = "Full_report")
+#+ Part 2, child=\"Part2.Rmd\", cache = TRUE
+")
+
+writeLines(multi_doc_lines, paste0(knit.fp, "/knit_multi_doc_report.R"))
+
+# Create Rmd document(s)
+
+p1 = knitr::spin(paste0(knit.fp, "/Part1.R"), knit = FALSE)
+p2 = knitr::spin(paste0(knit.fp, "/Part2.R"), knit = FALSE)
+
+all = knitr::spin(paste0(knit.fp, "/knit_multi_doc_report.R"), knit = FALSE)
+
+rmarkdown::render(all, output_format = html_document(toc = TRUE), 
+                  output_file = "Full_Report")
+#### =================================================================================================== ####

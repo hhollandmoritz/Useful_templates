@@ -1,7 +1,7 @@
-#' ## Chapter 2
-#' This is the second chapter
+#' ## Chapter 1
+#' This is the first chapter
 
-#+ include=FALSE
+#+ knitr setup, include=FALSE
 # some setup options for outputing markdown files; feel free to ignore these
 # These are the default options for this report; more information about options here: https://yihui.name/knitr/options/
 knitr::opts_chunk$set(eval = TRUE,
@@ -15,8 +15,8 @@ knitr::opts_chunk$set(eval = TRUE,
                       out.width = '98%',
                       out.height = '98%',
                       cache = TRUE)
-#+ loading libraries for part 2 and set seed
+#+ loading libraries and set seed
 # Here I would normally load my libraries
 set.seed(12345)
 
-#' ## The start of your analyses
+#' ### The start of your analyses
