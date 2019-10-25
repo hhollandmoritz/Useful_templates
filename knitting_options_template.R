@@ -71,6 +71,14 @@ p2 = knitr::spin(paste0(knit.fp, "/Part2.R"), knit = FALSE)
 
 all = knitr::spin(paste0(knit.fp, "/knit_multi_doc_report.R"), knit = FALSE)
 
+# HTML document
 rmarkdown::render(all, output_format = html_document(toc = TRUE), 
+                  output_file = "Full_Report")
+
+# Markdown document
+rmarkdown::render(all, output_format = md_document(toc = TRUE), 
+                  output_file = "Full_Report")
+# PDF Document
+rmarkdown::render(all, output_format = pdf_document(toc = TRUE), 
                   output_file = "Full_Report")
 #### =================================================================================================== ####
