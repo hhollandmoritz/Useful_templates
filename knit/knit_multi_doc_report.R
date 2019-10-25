@@ -1,7 +1,7 @@
 
 #' ---
 #' title: Full Report Title
-#' author: Your Name Here
+#' author: Your Name Here  
 #' date: "`r format(Sys.time(), '%d %B, %Y')`"
 #' output: 
 #'   pdf_document:
