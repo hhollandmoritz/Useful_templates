@@ -10,19 +10,20 @@ code.fp <- paste0(project.fp, "/code") # location of your scripts, sometimes thi
 if (!dir.exists(knit.fp)) {dir.create(knit.fp)}
 
 #### Knitting Part 1: NameOfPart1 ####
-
-file.copy(from = paste0(code.fp, "/Part1.R"),
-          to = paste0(knit.fp, "/Part1.R"),
-          overwrite = TRUE)
+if (!file.exists(paste0(knit.fp, "/Part1.R"))) {
+  file.symlink(from = paste0(project.fp, "/Part1.R"),
+               to = paste0(knit.fp, "/Part1.R"))
+}
 o = knitr::spin(paste0(knit.fp, "/Part1.R"), knit = FALSE)
 rmarkdown::render(o, "html_document")
 #### =================================================================================================== ####
 
 #### Kniting Part 2: 02_preliminary_analyses ####
 
-file.copy(from = paste0(code.fp, "/Part2.R"),
-          to = paste0(knit.fp, "/Part2.R"),
-          overwrite = TRUE)
+if (!file.exists(paste0(knit.fp, "/Part2.R"))) {
+  file.symlink(from = paste0(project.fp, "/Part2.R"),
+               to = paste0(knit.fp, "/Part2.R"))
+}
 o = knitr::spin(paste0(knit.fp, "/Part2.R"), knit = FALSE)
 rmarkdown::render(o, "html_document")
 #### =================================================================================================== ####
